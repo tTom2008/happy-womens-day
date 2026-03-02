@@ -432,3 +432,63 @@ body.pink-theme .letter-text h3,
 body.pink-theme .signature {
     color: #c2185b;
 }
+
+/* Khi màn hình nhỏ hơn 768px (Điện thoại và Máy tính bảng) */
+@media (max-width: 768px) {
+    /* 1. Màn hình Login: Chồng ảnh lên trên, bàn phím xuống dưới */
+    .screen {
+        flex-direction: column; 
+        overflow-y: auto; /* Cho phép cuộn nếu nội dung dài */
+    }
+    
+    .login-left, .login-right {
+        width: 100%;
+        height: auto;
+        padding: 10px;
+    }
+
+    .girl-img {
+        transform: translateX(0); /* Bỏ nhích phải để ảnh nằm giữa */
+        max-width: 70%;
+        margin-top: 20px;
+    }
+
+    /* 2. Menu chính: Để 1 cột cho đỡ chật */
+    .menu-grid {
+        gap: 15px;
+        max-width: 100%;
+    }
+
+    .menu-item {
+        width: 140px; /* Thu nhỏ các ô menu lại */
+        height: 140px;
+        font-size: 1.1em;
+    }
+
+    /* 3. Tiêu đề: Giảm kích thước chữ */
+    .main-title {
+        font-size: 2.5em;
+        padding: 10px 20px;
+    }
+
+    /* 4. Lá thư: Co giãn theo màn hình */
+    .letter-bg {
+        width: 95%;
+        padding: 20px;
+        line-height: 25px;
+    }
+    
+    .letter-text {
+        font-size: 1.2em;
+    }
+
+    /* 5. Video Player: Thu nhỏ khung player */
+    .player-ui {
+        width: 90%;
+        padding: 15px;
+    }
+}
+img, video, iframe {
+    max-width: 100%;
+    height: auto;
+}
