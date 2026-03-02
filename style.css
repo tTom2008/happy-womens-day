@@ -1,0 +1,434 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+}
+
+body {
+    overflow: hidden;
+}
+
+.screen {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    transition: opacity 0.5s ease;
+}
+
+.hidden {
+    display: none !important;
+    opacity: 0;
+}
+
+/* --- LOGIN SCREEN --- */
+#login-screen {
+    background-color: #fff0f5;
+}
+
+.login-left {
+    width: 50%; height: 100%; display: flex;
+    align-items: center; justify-content: center; padding: 20px;
+}
+
+.girl-img {
+    max-width: 80%; max-height: 90%;
+    border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); object-fit: cover;
+}
+
+.login-right {
+    width: 50%; display: flex; align-items: center; justify-content: center;
+}
+
+.login-box {
+    background: white; padding: 40px; border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center;
+    width: 350px;
+}
+
+.login-box h2 {
+    font-family: 'Dancing Script', cursive; font-size: 2.5em; color: #ff6b81; margin-bottom: 5px;
+}
+
+.pin-display {
+    display: flex; justify-content: center; gap: 15px; margin: 20px 0;
+}
+.dot {
+    width: 15px; height: 15px; border-radius: 50%;
+    background-color: #ddd; transition: background-color 0.2s;
+}
+.dot.active { background-color: #ff6b81; }
+
+.numpad {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 10px;
+}
+.numpad button {
+    width: 60px; height: 60px; margin: 0 auto; border-radius: 50%;
+    border: 1px solid #ffe4e1; background-color: transparent;
+    font-size: 1.5em; font-weight: bold; color: #555; cursor: pointer; transition: 0.2s;
+}
+.numpad button:hover, .numpad button:active {
+    background-color: #ff6b81; color: white; border-color: #ff6b81;
+}
+.numpad .action-btn { font-size: 1.2em; border: none; font-weight: 800; }
+
+/* =========================================
+   MÀN HÌNH CHÍNH (ĐÃ LÀM MỚI HOÀN TOÀN) 
+   ========================================= */
+#main-screen {
+    /* Nền chuyển sắc ấm áp từ xanh nhạt sang hồng nhạt */
+    background: linear-gradient(135deg, #d4f0d0 0%, #e9f5e8 50%, #fde7f3 100%);
+    flex-direction: column;
+    align-items: center; justify-content: center;
+    position: relative;
+}
+
+/* Hiệu ứng bay lơ lửng ở background */
+.decorations {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 0; overflow: hidden;
+}
+
+.floating-item {
+    position: absolute; font-size: 2em; opacity: 0.6;
+    animation: floatUp 10s linear infinite;
+    bottom: -50px;
+}
+/* Setup vị trí rải rác và tốc độ bay cho từng icon */
+.floating-item:nth-child(1) { left: 10%; animation-duration: 12s; animation-delay: 0s; }
+.floating-item:nth-child(2) { left: 25%; animation-duration: 15s; animation-delay: 2s; }
+.floating-item:nth-child(3) { left: 45%; animation-duration: 10s; animation-delay: 4s; }
+.floating-item:nth-child(4) { left: 65%; animation-duration: 14s; animation-delay: 1s; }
+.floating-item:nth-child(5) { left: 80%; animation-duration: 11s; animation-delay: 3s; }
+.floating-item:nth-child(6) { left: 90%; animation-duration: 13s; animation-delay: 5s; }
+.floating-item:nth-child(7) { left: 35%; animation-duration: 16s; animation-delay: 0.5s; font-size: 1.5em;}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.8; }
+    100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+}
+
+/* Tiêu đề lung linh, có nền kính mờ */
+.main-title {
+    font-family: 'Dancing Script', cursive; font-size: 4.5em; color: #2e7d32;
+    margin-bottom: 40px; text-align: center; z-index: 1;
+    background: rgba(255, 255, 255, 0.4); /* Nền kính mờ */
+    padding: 15px 50px; border-radius: 50px;
+    backdrop-filter: blur(5px);
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 10px 30px rgba(46, 125, 50, 0.1);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+}
+
+.menu-grid {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 30px; max-width: 600px; z-index: 1;
+}
+
+/* Các ô menu thiết kế lại theo dạng Thẻ bài (Card) mềm mại */
+.menu-item {
+    background: rgba(255, 255, 255, 0.75); /* Hơi trong suốt */
+    backdrop-filter: blur(10px);
+    width: 160px; height: 160px;
+    display: flex; flex-direction: column; 
+    align-items: center; justify-content: center; gap: 10px;
+    font-size: 1.4em; font-weight: 800; color: #388e3c;
+    border-radius: 30px; /* Bo góc tròn nhiều hơn */
+    box-shadow: 0 8px 20px rgba(46, 125, 50, 0.1), inset 0 0 0 2px rgba(255,255,255,0.8);
+    cursor: pointer; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: none;
+}
+.menu-icon { font-size: 2.2em; } /* Icon to rõ rệt */
+
+.menu-item:hover {
+    transform: translateY(-15px) scale(1.05); 
+    box-shadow: 0 15px 30px rgba(46, 125, 50, 0.2); 
+    background: #ffffff;
+}
+
+/* --- MODALS GENERAL --- */
+.modal {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center; z-index: 100;
+}
+.modal-content { position: relative; animation: popIn 0.3s ease-out forwards; }
+@keyframes popIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+.close-btn {
+    position: absolute; top: 15px; right: 15px; font-size: 20px; font-weight: bold;
+    background: #ff4757; color: white; border: none; width: 30px; height: 30px;
+    border-radius: 50%; cursor: pointer; z-index: 10; display: flex; justify-content: center; align-items: center;
+}
+
+/* --- 1. VIDEO PLAYER --- */
+.player-ui {
+    background: #f1fcf1; width: 350px; padding: 25px; border-radius: 30px; 
+    box-shadow: 0 20px 40px rgba(46, 125, 50, 0.15); text-align: center;
+}
+.player-header {
+    font-size: 0.9em; font-weight: 800; color: #388e3c; letter-spacing: 2px; margin-bottom: 20px;
+}
+.video-container {
+    width: 100%; aspect-ratio: 1/1; border-radius: 20px; overflow: hidden; 
+    box-shadow: 0 10px 20px rgba(56, 142, 60, 0.15); margin-bottom: 20px; background-color: #000; padding: 5px;
+}
+.video-container video { width: 100%; height: 100%; object-fit: contain; }
+.video-title { font-size: 1.5em; font-weight: 800; color: #388e3c; margin-bottom: 20px; }
+.progress-container { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 20px; }
+.progress-container span { font-size: 0.8em; font-weight: bold; color: #388e3c; }
+input[type="range"] {
+    -webkit-appearance: none; width: 100%; height: 6px; background: #c8e6c9; border-radius: 5px; outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 15px; height: 15px; border-radius: 50%; background: #388e3c; cursor: pointer;
+}
+.controls { display: flex; justify-content: center; align-items: center; gap: 20px; }
+.ctrl-btn { background: none; border: none; font-size: 1.5em; color: #a5d6a7; cursor: pointer; transition: 0.2s; }
+.ctrl-btn:hover { color: #388e3c; }
+.play-btn {
+    width: 60px; height: 60px; border-radius: 50%; background: #388e3c; color: white;
+    border: none; font-size: 1.8em; cursor: pointer; box-shadow: 0 10px 20px rgba(56, 142, 60, 0.3);
+    display: flex; justify-content: center; align-items: center; padding-left: 5px; 
+}
+
+/* =========================================
+   2. LETTER MODAL (FONT VIẾT TAY CAVEAT) 
+   ========================================= */
+.letter-bg {
+    width: 500px; background: #fffdf5; border: 2px dashed #dcdde1; border-radius: 15px;
+    background-image: repeating-linear-gradient(transparent, transparent 29px, #e8f5e9 30px);
+    line-height: 35px; padding: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.letter-text {
+    font-family: 'Caveat', cursive; /* Đổi sang font viết tay tự nhiên */
+    font-size: 2.3em; /* Tăng size để dễ đọc hơn */
+    font-weight: 600;
+    color: #2c3e50; 
+    min-height: 200px;
+}
+
+.letter-text h3 { 
+    font-family: 'Caveat', cursive; 
+    font-size: 1.2em; /* Tương đối so với size chữ bên trên */
+    margin-bottom: 10px; 
+    color: #2e7d32;
+}
+
+.cursor { animation: blink 0.8s infinite; color: #444; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+.signature { 
+    font-family: 'Caveat', cursive;
+    text-align: right; 
+    margin-top: 30px; 
+    font-weight: 700; 
+    color: #2e7d32;
+    font-size: 1em;
+}
+
+.letter-icon { position: absolute; bottom: 15px; right: 20px; width: 40px; opacity: 0.8; }
+
+/* --- 3. GIFT MODAL --- */
+.gift-box { width: 600px; height: 400px; background-color: #1a1a1a; transition: all 0.4s ease; border-radius: 15px; }
+.expand-btn {
+    position: absolute; top: 15px; right: 55px; font-size: 20px; background: none; border: none;
+    cursor: pointer; color: #fff; z-index: 10;
+}
+.expand-btn:hover { color: #81c784; }
+.gift-box.fullscreen { width: 100vw; height: 100vh; border-radius: 0; }
+#flower-container { width: 100%; height: 100%; }
+
+/* Khung chứa nội dung chữ */
+.letter-text {
+    min-height: 200px;
+    color: #2c3e50; 
+}
+
+/* 1. Dòng chữ "Hello bạn Phượng," (Dùng Adam Script) */
+.letter-text h3 { 
+    font-family: 'Adam Script', 'Great Vibes', cursive; 
+    font-size: 2.5em; /* Kích thước to hơn chút cho font viết tay nét mỏng */
+    margin-bottom: 15px; 
+    color: #2e7d32;
+    font-weight: normal;
+}
+
+/* 2. Dòng chữ gõ Typewriter (Dùng Dancing Script) */
+#typewriter-text, .cursor {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.6em; /* Cỡ chữ vừa phải dễ đọc */
+    font-weight: 600;
+    line-height: 1.8;
+}
+
+/* 3. Dòng chữ ký "- From Lộc -" (Dùng Adam Script) */
+.signature { 
+    font-family: 'Adam Script', 'Great Vibes', cursive;
+    text-align: right; 
+    margin-top: 30px; 
+    font-size: 2.2em;
+    color: #2e7d32;
+    font-weight: normal;
+}
+/* =========================================
+   CĂN CHỈNH LẠI KÍCH THƯỚC CHỮ CHO LÁ THƯ
+   ========================================= */
+
+/* Khung chứa nội dung chữ */
+.letter-text {
+    min-height: 120px; /* Thu nhỏ chiều cao tối thiểu để thư không bị trống */
+    color: #2c3e50; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* 1. Dòng chữ "Hello bạn Phượng," (Dùng Adam Script) */
+.letter-text h3 { 
+    font-family: 'Adam Script', 'Great Vibes', cursive; 
+    font-size: 2.2em; /* Giảm size xuống một chút để thanh thoát hơn */
+    margin-bottom: 5px; /* Ép dòng chữ chào sát vào nội dung chúc */
+    color: #2e7d32;
+    font-weight: normal;
+}
+
+/* 2. Dòng chữ gõ Typewriter (Dùng Dancing Script) */
+#typewriter-text, .cursor {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.4em; /* Chữ nhỏ lại vừa vặn, không bị tràn dòng quá nhiều */
+    font-weight: 600;
+    line-height: 1.5; /* Khoảng cách dòng hẹp lại để các dòng chữ kết lại với nhau hơn */
+}
+
+/* 3. Dòng chữ ký "- From Lộc -" (Dùng Adam Script) */
+.signature { 
+    font-family: 'Adam Script', 'Great Vibes', cursive;
+    text-align: right; 
+    margin-top: 15px; /* Giảm khoảng cách từ lời chúc xuống chữ ký */
+    font-size: 1.8em; /* Chữ ký nhỏ lại cho cân đối với phần nội dung */
+    color: #2e7d32;
+    font-weight: normal;
+}
+.letter-bg {
+    width: 500px; 
+    max-width: 90vw; /* Đảm bảo không bị tràn viền nếu xem trên điện thoại */
+    background: #fffdf5; border: 2px dashed #dcdde1; border-radius: 15px;
+    background-image: repeating-linear-gradient(transparent, transparent 29px, #e8f5e9 30px);
+    line-height: 35px; 
+    padding: 30px 40px; /* Cắt bớt khoảng trống thừa ở trên và dưới */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+
+.girl-img {
+    max-width: 80%; max-height: 90%;
+    border-radius: 20px; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
+    object-fit: cover;
+    transform: translateX(140px); /* Thêm dòng này: số dương đẩy sang phải, số âm đẩy sang trái */
+}
+
+
+
+/* 1. Dòng chữ "Hello bạn Phượng" */
+.letter-text h3 { 
+    font-family: 'Rokkitt', cursive; /* Đã đổi sang font Charm */
+    font-size: 1em; 
+    margin-bottom: 5px; 
+    color: #2e7d32;
+    font-weight: 700; /* Làm chữ đậm lên một chút cho rõ nét */
+}
+
+/* 3. Dòng chữ ký "- From Lộc -" */
+.signature { 
+    font-family: 'Rokkitt', cursive; /* Đã đổi sang font Charm */
+    text-align: right; 
+    margin-top: 15px; 
+    font-size: 0.8em; 
+    color: #2e7d32;
+    font-weight: 700; /* Làm chữ đậm lên một chút cho rõ nét */
+    margin-right: 43px; /* Đẩy chữ ký sang trái để cân đối với phần nội dung */
+}
+
+
+.letter-icon { 
+    position: absolute; 
+    bottom: 15px; 
+    right: 20px; 
+    width: 40px; 
+    opacity: 0.8; 
+    /* Thêm dòng này để xoay icon qua trái 90 độ */
+    transform: rotate(-90deg) scale(1.3); 
+    margin-right: 15px;
+}
+/* =========================================
+   THEME HỒNG (Tự động kích hoạt nếu nhập Pass 2)
+   ========================================= */
+body.pink-theme #main-screen {
+    /* Đổi nền gradient từ Xanh -> Hồng pastel */
+    background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #f48fb1 100%);
+}
+
+body.pink-theme .main-title {
+    color: #c2185b; /* Hồng đậm */
+    box-shadow: 0 10px 30px rgba(194, 24, 91, 0.15);
+}
+
+body.pink-theme .menu-item {
+    color: #d81b60;
+    box-shadow: 0 8px 20px rgba(216, 27, 96, 0.1), inset 0 0 0 2px rgba(255,255,255,0.8);
+}
+
+body.pink-theme .menu-item:hover {
+    box-shadow: 0 15px 30px rgba(216, 27, 96, 0.25);
+    background: #fff0f5; /* Sáng lên khi hover */
+}
+
+/* --- Đổi Tone Video Player sang Hồng --- */
+body.pink-theme .player-ui {
+    background: #fff0f5;
+    box-shadow: 0 20px 40px rgba(216, 27, 96, 0.15);
+}
+
+body.pink-theme .player-header,
+body.pink-theme .video-title,
+body.pink-theme .progress-container span {
+    color: #d81b60;
+}
+
+body.pink-theme input[type="range"] {
+    background: #f8bbd0;
+}
+
+body.pink-theme input[type="range"]::-webkit-slider-thumb {
+    background: #d81b60;
+}
+
+body.pink-theme .ctrl-btn {
+    color: #f48fb1;
+}
+
+body.pink-theme .ctrl-btn:hover {
+    color: #d81b60;
+}
+
+body.pink-theme .play-btn {
+    background: #d81b60;
+    box-shadow: 0 10px 20px rgba(216, 27, 96, 0.3);
+}
+
+body.pink-theme .video-container {
+    box-shadow: 0 10px 20px rgba(216, 27, 96, 0.15);
+}
+
+/* --- Đổi Tone Màu Chữ trong Lá Thư sang Hồng Đậm --- */
+body.pink-theme .letter-text h3,
+body.pink-theme .signature {
+    color: #c2185b;
+}
