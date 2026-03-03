@@ -14,12 +14,12 @@ const PROFILE_1 = {
 
 const PROFILE_2 = {
     pin: "1506",          // Mã PIN cho Phượng (Bạn có thể đổi tùy ý)
-    theme: "pink",        // Tone màu sẽ tự chuyển sang Hồng
+    theme: "blue",        // Tone màu sẽ tự chuyển sang Xanh Dương
     vidHeader: "Phương's Video",
     vidSrc: "p.mp4", // Đổi tên video mặc định của bạn ở đây
     vidTitle: "A major glow-up",
     greeting: "Hello Phương,",
-    message: "Nhân ngày 8/3, chúc bạn luôn xinh đẹp, vui vẻ và hạnh phúc. Chúc bạn sẽ tốt nghiệp ngôi trường mơ ước"
+    message: "Nhân ngày 8/3, chúc bạn luôn xinh đẹp, vui vẻ và hạnh phúc. Chúc bạn sẽ tốt nghiệp ngôi trường mơ ước."
 };
 
 let currentPin = "";
@@ -43,8 +43,9 @@ function addNumber(num) {
         updateDots();
         document.getElementById("error-msg").style.display = "none";
         
+        // Tự động kiểm tra khi đủ 4 số
         if (currentPin.length === 4) {
-            setTimeout(checkPin, 200);
+            setTimeout(checkPin, 200); // Đợi 0.2s để hiện dấu chấm thứ 4 rồi mới check
         }
     }
 }
@@ -73,11 +74,11 @@ function applyProfile(profile) {
     document.getElementById("login-screen").classList.add("hidden");
     document.getElementById("main-screen").classList.remove("hidden");
 
-    // 2. Đổi tone màu Web (Thêm class pink-theme nếu là Phượng)
-    if (profile.theme === "pink") {
-        document.body.classList.add("pink-theme");
+    // 2. Đổi tone màu Web (Thêm class blue-theme nếu là Phương)
+    if (profile.theme === "blue") {
+        document.body.classList.add("blue-theme");
     } else {
-        document.body.classList.remove("pink-theme");
+        document.body.classList.remove("blue-theme");
     }
 
     // 3. Đổi thông tin Video
@@ -188,16 +189,4 @@ function toggleFullscreen() {
     } else {
         expandIcon.innerHTML = "⛶";
     }
-}
-
-
-
-function openGiftModal() {
-    document.getElementById("gift-modal").classList.remove("hidden");
-    document.body.style.overflow = "hidden";
-}
-
-function closeGiftModal() {
-    document.getElementById("gift-modal").classList.add("hidden");
-    document.body.style.overflow = "";
 }
