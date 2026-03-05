@@ -1,29 +1,17 @@
 // ==========================================
-// 1. CẤU HÌNH CHO 2 NGƯỜI (2 MÃ PIN KHÁC NHAU)
+// CẤU HÌNH THÔNG TIN CHO 1 NGƯỜI DUY NHẤT
 // ==========================================
+const CORRECT_PIN = "0803";     // Mã PIN mở khóa
+const THEME_COLOR = "blue";     // Tone màu web (blue = Xanh dương)
 
-const PROFILE_1 = {
-    pin: "2008",          // Mã PIN người thứ 1
-    theme: "green",       // Tone màu mặc định (Xanh lá)
-    vidHeader: "Phượng's Video",
-    vidSrc: "pj.mp4",
-    vidTitle: "The peak moment",
-    greeting: "Hello bạn Phượng,",
-    message: "Chúc bạn Phượng 8/3 vui vẻ, ngày càng xinh đẹp và tốt nghiệp ngôi trường mong muốn."
-};
-
-const PROFILE_2 = {
-    pin: "1506",          // Mã PIN cho Phượng (Bạn có thể đổi tùy ý)
-    theme: "blue",        // Tone màu sẽ tự chuyển sang Xanh Dương
-    vidHeader: "Phương's Video",
-    vidSrc: "p.mp4", // Đổi tên video mặc định của bạn ở đây
-    vidTitle: "A major glow-up",
-    greeting: "Hello Phương,",
-    message: "Nhân ngày 8/3, chúc bạn luôn xinh đẹp, vui vẻ và hạnh phúc. Chúc bạn sẽ tốt nghiệp ngôi trường mơ ước."
-};
+const VID_HEADER = "Phương's Video";
+const VID_SRC = "p.mp4";        // Tên file video
+const VID_TITLE = "A major glow-up";
+const GREETING = "Hello Phương,";
+const MESSAGE = "Nhân ngày 8/3, chúc bạn luôn xinh đẹp, vui vẻ và hạnh phúc. Chúc bạn sẽ tốt nghiệp ngôi trường mơ ước.";
 
 let currentPin = "";
-let textToType = ""; // Khai báo biến lưu lời chúc động
+let textToType = MESSAGE;
 
 // --- LOGIC BÀN PHÍM SỐ ---
 function updateDots() {
@@ -45,7 +33,7 @@ function addNumber(num) {
         
         // Tự động kiểm tra khi đủ 4 số
         if (currentPin.length === 4) {
-            setTimeout(checkPin, 200); // Đợi 0.2s để hiện dấu chấm thứ 4 rồi mới check
+            setTimeout(checkPin, 200); 
         }
     }
 }
@@ -57,38 +45,27 @@ function clearPin() {
 }
 
 function checkPin() {
-    if (currentPin === PROFILE_1.pin) {
-        applyProfile(PROFILE_1);
-    } else if (currentPin === PROFILE_2.pin) {
-        applyProfile(PROFILE_2);
+    if (currentPin === CORRECT_PIN) {
+        // 1. Ẩn màn hình đăng nhập, hiện màn hình chính
+        document.getElementById("login-screen").classList.add("hidden");
+        document.getElementById("main-screen").classList.remove("hidden");
+
+        // 2. Kích hoạt màu nền (Xanh dương)
+        if (THEME_COLOR === "blue") {
+            document.body.classList.add("blue-theme");
+        }
+
+        // 3. Gắn thông tin vào giao diện
+        document.getElementById("vid-header").innerText = VID_HEADER;
+        document.getElementById("my-video").src = VID_SRC;
+        document.getElementById("vid-title").innerText = VID_TITLE;
+        document.getElementById("letter-greeting").innerText = GREETING;
+
     } else {
         document.getElementById("error-msg").style.display = "block";
         currentPin = "";
         updateDots();
     }
-}
-
-// Hàm áp dụng giao diện và nội dung tùy theo người nhập Pass
-function applyProfile(profile) {
-    // 1. Chuyển màn hình
-    document.getElementById("login-screen").classList.add("hidden");
-    document.getElementById("main-screen").classList.remove("hidden");
-
-    // 2. Đổi tone màu Web (Thêm class blue-theme nếu là Phương)
-    if (profile.theme === "blue") {
-        document.body.classList.add("blue-theme");
-    } else {
-        document.body.classList.remove("blue-theme");
-    }
-
-    // 3. Đổi thông tin Video
-    document.getElementById("vid-header").innerText = profile.vidHeader;
-    document.getElementById("my-video").src = profile.vidSrc;
-    document.getElementById("vid-title").innerText = profile.vidTitle;
-
-    // 4. Đổi thông tin Thư
-    document.getElementById("letter-greeting").innerText = profile.greeting;
-    textToType = profile.message; // Nạp câu chúc tương ứng vào máy đánh chữ
 }
 
 // --- LOGIC MODAL & TYPEWRITER ---
