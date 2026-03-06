@@ -1,14 +1,13 @@
 // ==========================================
-// CẤU HÌNH THÔNG TIN CHO 1 NGƯỜI DUY NHẤT
+// CẤU HÌNH THÔNG TIN CHO 1 NGƯỜI DUY NHẤT (PHƯỢNG - XANH LÁ)
 // ==========================================
-const CORRECT_PIN = "0803";     // Mã PIN mở khóa
-const THEME_COLOR = "blue";     // Tone màu web (blue = Xanh dương)
+const CORRECT_PIN = "0803";     // Mã PIN mở khóa của bạn Phượng
 
-const VID_HEADER = "Phương's Video";
-const VID_SRC = "p.mp4";        // Tên file video
-const VID_TITLE = "A major glow-up";
-const GREETING = "Hello Phương,";
-const MESSAGE = "Nhân ngày 8/3, chúc bạn luôn xinh đẹp, vui vẻ và hạnh phúc. Chúc bạn sẽ tốt nghiệp ngôi trường mơ ước.";
+const VID_HEADER = "Phượng's Video";
+const VID_SRC = "pj.mp4";       // Tên file video của Phượng
+const VID_TITLE = "The peak moment";
+const GREETING = "Hello bạn Phượng,";
+const MESSAGE = "Chúc bạn Phượng 8/3 vui vẻ, ngày càng xinh đẹp và tốt nghiệp ngôi trường mong muốn.";
 
 let currentPin = "";
 let textToType = MESSAGE;
@@ -50,12 +49,9 @@ function checkPin() {
         document.getElementById("login-screen").classList.add("hidden");
         document.getElementById("main-screen").classList.remove("hidden");
 
-        // 2. Kích hoạt màu nền (Xanh dương)
-        if (THEME_COLOR === "blue") {
-            document.body.classList.add("blue-theme");
-        }
+        // (Mặc định CSS của bạn đã là màu xanh lá nên không cần đổi theme ở đây nữa)
 
-        // 3. Gắn thông tin vào giao diện
+        // 2. Gắn thông tin vào giao diện
         document.getElementById("vid-header").innerText = VID_HEADER;
         document.getElementById("my-video").src = VID_SRC;
         document.getElementById("vid-title").innerText = VID_TITLE;
@@ -67,7 +63,6 @@ function checkPin() {
         updateDots();
     }
 }
-
 let typeIndex = 0;
 let isTyping = false;
 
